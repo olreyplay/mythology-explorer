@@ -3,6 +3,7 @@
 import { useState } from "react";
 import MythCard from "@/components/MythCard";
 import MythFilters from "@/components/MythFilters";
+import MythRecommendation from "@/components/MythRecommendation";
 import { myths } from "@/data/myths";
 
 export default function MythsSection() {
@@ -42,6 +43,13 @@ export default function MythsSection() {
         onVibeChange={setSelectedVibe}
         onCharacterTypeChange={setSelectedCharacterType}
         onRegionChange={setSelectedRegion}
+      />
+
+      <MythRecommendation
+        selectedVibe={selectedVibe}
+        selectedCharacterType={selectedCharacterType}
+        selectedRegion={selectedRegion}
+        resultsCount={filteredMyths.length}
       />
 
       {filteredMyths.length === 0 && (
