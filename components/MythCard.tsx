@@ -6,7 +6,7 @@ type MythCardProps = {
 
 export default function MythCard({ myth }: MythCardProps) {
   return (
-    <article className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 p-8 backdrop-blur-sm transition hover:border-amber-500/30 hover:bg-white/[0.07]">
+    <article className="overflow-hidden rounded-4xl border border-white/10 bg-white/5 p-8 backdrop-blur-sm transition hover:border-amber-500/30 hover:bg-white/[0.07]">
       <div className="flex flex-wrap gap-3">
         <span className="rounded-full bg-amber-500/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-amber-400">
           {myth.region}
