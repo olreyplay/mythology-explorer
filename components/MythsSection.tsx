@@ -12,6 +12,7 @@ export default function MythsSection() {
   const [selectedRegion, setSelectedRegion] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [favoriteIds, setFavoriteIds] = useState<number[]>([]);
+  const [randomMythId, setRandomMythId] = useState<number | null>(null);
 
   const filteredMyths = myths.filter((myth) => {
     const query = searchQuery.toLowerCase();
@@ -44,6 +45,15 @@ export default function MythsSection() {
 
     setFavoriteIds([...favoriteIds, id]);
   }
+
+  function suggestRandomMyth() {
+    const randomIndex = Math.floor(Math.random() * myths.length);
+    const randomMyth = myths[randomIndex];
+
+    setRandomMythId(randomMyth.id);
+  }
+
+  const randomMyth = myths.find((myth) => myth.id === randomMythId);
 
   return (
     <section className="mt-24">
@@ -79,6 +89,25 @@ export default function MythsSection() {
       <p className="mt-4 text-sm text-stone-500">
         {favoriteIds.length} favorite myths saved.
       </p>
+
+      <button
+        onClick={suggestRandomMyth}
+        className="mt-6 rounded-full bg-amber-500 px-6 py-3 text-sm font-semibold text-black transition hover:bg-amber-400"
+      >
+        Surprise Me
+      </button>
+
+      {randomMyth && (
+        <div className="mt-8 rounded-4xl border border-amber-500/20 bg-amber-500/10 p-6">
+          <p className="text-sm uppercase tracking-[0.25em] text-amber-400">
+            Suggested Myth
+          </p>
+
+          <h3 className="mt-3 text-2xl font-bold">{randomMyth.title}</h3>
+
+          <p className="mt-3 text-stone-400">{randomMyth.summary}</p>
+        </div>
+      )}
 
       <MythRecommendation
         selectedVibe={selectedVibe}
