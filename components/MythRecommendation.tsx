@@ -20,7 +20,7 @@ export default function MythRecommendation({
   }
 
   return (
-    <div className="mt-8 rounded-[2rem] border border-amber-500/20 bg-amber-500/10 p-6">
+    <div className="mt-8 rounded-4xl border border-amber-500/20 bg-amber-500/10 p-6">
       <p className="text-sm uppercase tracking-[0.25em] text-amber-400">
         Recommended Myths
       </p>
