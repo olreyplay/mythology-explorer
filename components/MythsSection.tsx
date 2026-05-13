@@ -10,8 +10,17 @@ export default function MythsSection() {
   const [selectedVibe, setSelectedVibe] = useState("All");
   const [selectedCharacterType, setSelectedCharacterType] = useState("All");
   const [selectedRegion, setSelectedRegion] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const filteredMyths = myths.filter((myth) => {
+    const query = searchQuery.toLowerCase();
+
+    const matchesSearch =
+      myth.title.toLowerCase().includes(query) ||
+      myth.region.toLowerCase().includes(query) ||
+      myth.vibe.toLowerCase().includes(query) ||
+      myth.characterType.toLowerCase().includes(query);
+
     const matchesVibe = selectedVibe === "All" || myth.vibe === selectedVibe;
 
     const matchesCharacterType =
@@ -21,7 +30,9 @@ export default function MythsSection() {
     const matchesRegion =
       selectedRegion === "All" || myth.region === selectedRegion;
 
-    return matchesVibe && matchesCharacterType && matchesRegion;
+    return (
+      matchesSearch && matchesVibe && matchesCharacterType && matchesRegion
+    );
   });
 
   return (
@@ -44,6 +55,16 @@ export default function MythsSection() {
         onCharacterTypeChange={setSelectedCharacterType}
         onRegionChange={setSelectedRegion}
       />
+
+      <div className="mt-6">
+        <input
+          value={searchQuery}
+          onChange={(event) => setSearchQuery(event.target.value)}
+          type="text"
+          placeholder="Search by title, region, vibe, or character..."
+          className="w-full rounded-full border border-white/10 bg-white/5 px-6 py-4 text-stone-100 outline-none backdrop-blur-sm transition placeholder:text-stone-500 focus:border-amber-500"
+        />
+      </div>
 
       <MythRecommendation
         selectedVibe={selectedVibe}
