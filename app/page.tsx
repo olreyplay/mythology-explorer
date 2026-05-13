@@ -1,4 +1,5 @@
 import HeroSection from "@/components/HeroSection";
+import MythsSection from "@/components/MythsSection";
 
 export default function HomePage() {
   return (
@@ -23,6 +24,7 @@ export default function HomePage() {
         </header>
 
         <HeroSection />
+        <MythsSection />
       </div>
     </main>
   );
