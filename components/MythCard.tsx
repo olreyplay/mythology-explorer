@@ -3,9 +3,15 @@ import { Myth } from "@/data/myths";
 
 type MythCardProps = {
   myth: Myth;
+  isFavorite: boolean;
+  onToggleFavorite: (id: number) => void;
 };
 
-export default function MythCard({ myth }: MythCardProps) {
+export default function MythCard({
+  myth,
+  isFavorite,
+  onToggleFavorite,
+}: MythCardProps) {
   return (
     <Link href={`/myths/${myth.slug}`}>
       <article className="overflow-hidden rounded-4xl border border-white/10 bg-white/5 p-8 backdrop-blur-sm transition hover:border-amber-500/30 hover:bg-white/[0.07]">
@@ -22,6 +28,15 @@ export default function MythCard({ myth }: MythCardProps) {
             {myth.characterType}
           </span>
         </div>
+        <button
+          onClick={(event) => {
+            event.preventDefault();
+            onToggleFavorite(myth.id);
+          }}
+          className="my-4 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-stone-300 transition hover:border-amber-500 hover:text-amber-400"
+        >
+          {isFavorite ? "Saved" : "Save Myth"}
+        </button>
 
         <h3 className="mt-8 text-3xl font-bold leading-tight">{myth.title}</h3>
 

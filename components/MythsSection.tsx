@@ -11,6 +11,7 @@ export default function MythsSection() {
   const [selectedCharacterType, setSelectedCharacterType] = useState("All");
   const [selectedRegion, setSelectedRegion] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
+  const [favoriteIds, setFavoriteIds] = useState<number[]>([]);
 
   const filteredMyths = myths.filter((myth) => {
     const query = searchQuery.toLowerCase();
@@ -34,6 +35,15 @@ export default function MythsSection() {
       matchesSearch && matchesVibe && matchesCharacterType && matchesRegion
     );
   });
+
+  function toggleFavorite(id: number) {
+    if (favoriteIds.includes(id)) {
+      setFavoriteIds(favoriteIds.filter((favoriteId) => favoriteId !== id));
+      return;
+    }
+
+    setFavoriteIds([...favoriteIds, id]);
+  }
 
   return (
     <section className="mt-24">
@@ -66,6 +76,10 @@ export default function MythsSection() {
         />
       </div>
 
+      <p className="mt-4 text-sm text-stone-500">
+        {favoriteIds.length} favorite myths saved.
+      </p>
+
       <MythRecommendation
         selectedVibe={selectedVibe}
         selectedCharacterType={selectedCharacterType}
@@ -81,7 +95,12 @@ export default function MythsSection() {
 
       <div className="mt-12 grid gap-6 lg:grid-cols-2">
         {filteredMyths.map((myth) => (
-          <MythCard key={myth.id} myth={myth} />
+          <MythCard
+            key={myth.id}
+            myth={myth}
+            isFavorite={favoriteIds.includes(myth.id)}
+            onToggleFavorite={toggleFavorite}
+          />
         ))}
       </div>
     </section>
